@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spotify Authorization Success</title>
+    <title>Spotify Authorization</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,23 +12,7 @@
         h1 {
             color: #1DB954;
         }
-        table {
-            width: 50%;
-            margin: auto;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-        }
-        th {
-            background-color: #1DB954;
-            color: white;
-        }
-        tr:hover {
-            background-color: #f2f2f2;
-        }
-        #copyButton {
+        button {
             background-color: #1DB954;
             color: white;
             padding: 10px 20px;
@@ -38,41 +22,73 @@
             cursor: pointer;
             transition: background-color 0.3s;
         }
-        #copyButton:hover {
+        button:hover {
             background-color: #1ED760;
         }
     </style>
 </head>
 <body>
-    <h1>Spotify Authorization Successful!</h1>
-    <p>Please copy the URL of this page and paste it to a more convenient place.</p>
-    <p id="pageUrl">Page URL: {{ page_url }}</p>
-    <button id="copyButton" onclick="copyUrl()">Copy URL</button>
-    <p>Recently played tracks:</p>
-    <table>
-        <tr>
-            <th>Track Name</th>
-            <th>Artist Name</th>
-        </tr>
-        {% for track in tracks %}
-        <tr>
-            <td>{{ track.track_name }}</td>
-            <td>{{ track.artist_name }}</td>
-        </tr>
-        {% endfor %}
-    </table>
+    <h1>Authorization Instructions</h1>
+    <p>Please click the button below to authorize your Spotify account:</p>
+    <button id="authorizeBtn">Authorize Spotify</button>
+    <p id="status"></p>
+    <div id="tracks"></div>
 
     <script>
-        function copyUrl() {
-            var copyText = document.getElementById("pageUrl");
-            var dummy = document.createElement("textarea");
-            document.body.appendChild(dummy);
-            dummy.value = copyText.textContent;
-            dummy.select();
-            document.execCommand("copy");
-            document.body.removeChild(dummy);
-            alert("URL copied to clipboard: " + copyText.textContent);
-        }
+        document.getElementById('authorizeBtn').addEventListener('click', function() {
+            var client_id = '06e39c411d04444190e4b1d925e46d00'; // Replace this with your client ID
+            var redirect_uri = 'http://localhost:4444/callback/';
+            var scope = 'user-read-recently-played playlist-read-private';
+
+            var auth_url = 'https://accounts.spotify.com/authorize' +
+                '?response_type=token' +
+                '&client_id=' + encodeURIComponent(client_id) +
+                '&scope=' + encodeURIComponent(scope) +
+                '&redirect_uri=' + encodeURIComponent(redirect_uri);
+
+            window.location.href = auth_url;
+        });
+
+        window.onload = function() {
+            var hashParams = {};
+            window.location.hash.substr(1).split('&').forEach(function(item) {
+                var parts = item.split('=');
+                hashParams[parts[0]] = parts[1];
+            });
+
+            if (hashParams.access_token) {
+                var accessToken = hashParams.access_token;
+                fetch('https://api.spotify.com/v1/me/player/recently-played', {
+                    headers: {
+                        'Authorization': 'Bearer ' + accessToken
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    var tracksDiv = document.getElementById('tracks');
+                    tracksDiv.innerHTML = '<h2>Recently Played Tracks</h2>';
+                    var tracksTable = document.createElement('table');
+                    tracksTable.innerHTML = `
+                        <tr>
+                            <th>Track Name</th>
+                            <th>Artist Name</th>
+                        </tr>
+                    `;
+                    data.items.forEach(item => {
+                        var trackName = item.track.name;
+                        var artistName = item.track.artists[0].name;
+                        tracksTable.innerHTML += `
+                            <tr>
+                                <td>${trackName}</td>
+                                <td>${artistName}</td>
+                            </tr>
+                        `;
+                    });
+                    tracksDiv.appendChild(tracksTable);
+                })
+                .catch(error => console.error('Error:', error));
+            }
+        };
     </script>
 </body>
 </html>
