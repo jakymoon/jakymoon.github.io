@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Authorization</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        h1 {
+            color: #1DB954;
+        }
+        button {
+            background-color: #1DB954;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #1ED760;
+        }
+    </style>
+</head>
+<body>
+    <h1>Authorization Instructions</h1>
+    <p>Please click the button below to authorize your Spotify account:</p>
+    <button onclick="authorizeSpotify()">Authorize Spotify</button>
+    <p id="status"></p>
+
+    <script>
+        function authorizeSpotify() {
+            var client_id = '06e39c411d04444190e4b1d925e46d00';
+            var redirect_uri = 'https://jakymoon.github.io/redirect.html';
+            var scope = 'user-read-recently-played playlist-read-private';
+
+            var auth_url = 'https://accounts.spotify.com/authorize' +
+                '?response_type=code' +
+                '&client_id=' + encodeURIComponent(client_id) +
+                '&scope=' + encodeURIComponent(scope) +
+                '&redirect_uri=' + encodeURIComponent(redirect_uri);
+
+            window.location.href = auth_url;
+        }
+    </script>
+</body>
+</html>
