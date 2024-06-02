@@ -7,7 +7,9 @@
     <style>
         body {
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            background-color: #191414;
+            background-image: url('https://images.unsplash.com/photo-1518443183909-43d1cd05bfb2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDF8fG11c2ljfGVufDB8fHx8MTY0MjI1MzQ4Nw&ixlib=rb-1.2.1&q=80&w=1080');
+            background-size: cover;
+            background-position: center;
             color: white;
             margin: 0;
             display: flex;
@@ -16,14 +18,17 @@
             align-items: center;
             height: 100vh;
             text-align: center;
+            backdrop-filter: blur(5px);
         }
         h1 {
             color: #1DB954;
             font-size: 3em;
             margin: 0.5em 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
         p {
             font-size: 1.2em;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
         }
         button {
             background-color: #1DB954;
@@ -33,21 +38,20 @@
             border: none;
             border-radius: 25px;
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
             margin-top: 20px;
-        }
-        button:hover {
-            background-color: #1ED760;
-            transform: scale(1.05);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
         table {
             margin: 20px 0;
             width: 80%;
             border-collapse: collapse;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
         }
         th, td {
             padding: 15px;
             border-bottom: 1px solid #282828;
+            color: white;
         }
         th {
             background-color: #282828;
@@ -59,6 +63,7 @@
         #tracks h2 {
             color: #1DB954;
             margin-bottom: 10px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
         }
     </style>
 </head>
