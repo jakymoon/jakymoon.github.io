@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify İstatistikleriniz</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1DB954, #191414);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        .stats {
+            width: 80%;
+            max-width: 800px;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .section h2 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+        .section ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .section li {
+            margin: 5px 0;
+        }
+        .progress-bar {
+            width: 100%;
+            background-color: #333;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        .progress {
+            height: 20px;
+            background-color: #1DB954;
+            width: 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Spotify İstatistikleriniz</h1>
+    <div class="stats">
+        <div class="section">
+            <h2>Son Sanatçılar</h2>
+            <ul>
+                <li>Sanatçı 1</li>
+                <li>Sanatçı 2</li>
+                <li>Sanatçı 3</li>
+                <li>Sanatçı 4</li>
+                <li>Sanatçı 5</li>
+            </ul>
+        </div>
+        <div class="section">
+            <h2>Top Şarkılar</h2>
+            <ul>
+                <li>Şarkı 1</li>
+                <li>Şarkı 2</li>
+                <li>Şarkı 3</li>
+                <li>Şarkı 4</li>
+                <li>Şarkı 5</li>
+            </ul>
+        </div>
+        <div class="section">
+            <h2>İstatistikler Yükleniyor</h2>
+            <div class="progress-bar">
+                <div class="progress" id="progress-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Progress bar animation
+        document.addEventListener("DOMContentLoaded", function() {
+            var progressBar = document.getElementById("progress-bar");
+            var width = 0;
+            var interval = setInterval(function() {
+                if (width >= 100) {
+                    clearInterval(interval);
+                } else {
+                    width++;
+                    progressBar.style.width = width + '%';
+                }
+            }, 100); // 100ms aralıklarla genişliği artır
+        });
+    </script>
+</body>
+</html>
