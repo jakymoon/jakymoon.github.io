@@ -7,9 +7,7 @@
     <style>
         body {
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            background-image: url('https://images.unsplash.com/photo-1518443183909-43d1cd05bfb2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDF8fG11c2ljfGVufDB8fHx8MTY0MjI1MzQ4Nw&ixlib=rb-1.2.1&q=80&w=1080');
-            background-size: cover;
-            background-position: center;
+            background: linear-gradient(135deg, #1DB954, #191414);
             color: white;
             margin: 0;
             display: flex;
@@ -18,10 +16,50 @@
             align-items: center;
             height: 100vh;
             text-align: center;
-            backdrop-filter: blur(5px);
+            overflow: hidden;
+        }
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            animation: float 6s ease-in-out infinite;
+        }
+        .shape1 {
+            width: 150px;
+            height: 150px;
+            top: 10%;
+            left: 20%;
+        }
+        .shape2 {
+            width: 200px;
+            height: 200px;
+            top: 70%;
+            left: 60%;
+        }
+        .shape3 {
+            width: 100px;
+            height: 100px;
+            top: 40%;
+            left: 80%;
+        }
+        .shape4 {
+            width: 250px;
+            height: 250px;
+            top: 50%;
+            left: 10%;
+        }
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+            100% {
+                transform: translateY(0) rotate(360deg);
+            }
         }
         h1 {
-            color: #1DB954;
             font-size: 3em;
             margin: 0.5em 0;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
@@ -68,6 +106,10 @@
     </style>
 </head>
 <body>
+    <div class="shape shape1"></div>
+    <div class="shape shape2"></div>
+    <div class="shape shape3"></div>
+    <div class="shape shape4"></div>
     <h1>Spotify Authorization</h1>
     <p>Please click the button below to authorize your Spotify account:</p>
     <button id="authorizeBtn">Authorize Spotify</button>
